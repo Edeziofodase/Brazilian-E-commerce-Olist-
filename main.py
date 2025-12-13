@@ -22,13 +22,13 @@ for file in os.listdir(path):
     print(f" - {file}")
 
 dadosv = pd.read_csv(os.path.join(path, 'olist_sellers_dataset.csv'))
-dadosv.head()
+
 
 dadosc = pd.read_csv(os.path.join(path, 'olist_customers_dataset.csv'))
-dadosc.head()
+
 
 dadosg = pd.read_csv(os.path.join(path, 'olist_geolocation_dataset.csv'))
-dadosg.head()
+
 
 dadospag = pd.read_csv(os.path.join(path, 'olist_order_payments_dataset.csv'))
-dadospag.head()
+
