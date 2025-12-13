@@ -9,25 +9,8 @@ import folium
 from folium.plugins import MarkerCluster, FastMarkerCluster
 import kagglehub
 
-# Download latest version
-path = kagglehub.dataset_download("olistbr/brazilian-ecommerce")
+@st.cache_data
+def load_data():
+    return pd.read_csv("leilão/dados/tabela.csv")
 
-print("Path to dataset files:", path)
-st.title('Análise Geral')
-
-
-print("Arquivos no dataset:")
-for file in os.listdir(path):
-    print(f" - {file}")
-
-dadosv = pd.read_csv(os.path.join(path, 'olist_sellers_dataset.csv'))
-
-
-dadosc = pd.read_csv(os.path.join(path, 'olist_customers_dataset.csv'))
-
-
-dadosg = pd.read_csv(os.path.join(path, 'olist_geolocation_dataset.csv'))
-
-
-dadospag = pd.read_csv(os.path.join(path, 'olist_order_payments_dataset.csv'))
-
+df = load_data()
