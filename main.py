@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import math as m
 import numpy as np
-import seaborn as sns
 import os
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
