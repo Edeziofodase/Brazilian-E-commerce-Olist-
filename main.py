@@ -14,3 +14,10 @@ def load_data():
     return pd.read_csv("leilão/dados/tabela.csv")
 
 df = load_data()
+
+mapa = folium.Map(location=[dadosg['geolocation_lat'].mean(), dadosg['geolocation_lng'].mean()], zoom_start=5, tiles='CartoDB dark_matter');
+
+data = list(zip(dadosg['geolocation_lat'], dadosg['geolocation_lng']))
+
+FastMarkerCluster(data).add_to(mapa)
+mapa.save('mapa_clusters.html') ; mapa
