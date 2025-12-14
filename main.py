@@ -8,3 +8,5 @@ from scipy.stats import pearsonr
 import folium
 from folium.plugins import MarkerCluster, FastMarkerCluster
 import kagglehub
+
+st.title('Análise Geral')
