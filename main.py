@@ -44,3 +44,11 @@ reviews_df = pd.read_csv(f"{dataset_path}/olist_order_reviews_dataset.csv")
 products_df = pd.read_csv(f"{dataset_path}/olist_products_dataset.csv")
 sellers_df = pd.read_csv(f"{dataset_path}/olist_sellers_dataset.csv")
 
+
+mapa = folium.Map(location=[geolocation_df['geolocation_lat'].mean(), geolocation_df['geolocation_lng'].mean()], zoom_start=5, tiles='CartoDB dark_matter');
+
+data = list(zip(geolocation_df['geolocation_lat'], geolocation_df['geolocation_lng']))
+
+FastMarkerCluster(data).add_to(mapa)
+mapa.save('mapa_clusters.html') ;
+st_data = st_folium(mapa, width=10)
