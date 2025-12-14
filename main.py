@@ -1,29 +1,38 @@
 import streamlit as st
 import pandas as pd
+import folium
+from folium.plugins import FastMarkerCluster
 
 st.set_page_config(layout="wide")
-st.title("✅ PRIMEIRO: Verifique se o básico funciona")
+st.title("🌍 Mapa Olist - Arquivos Locais")
 
-st.write("1. Streamlit funciona? ✅")
-st.write("2. Vamos testar um gráfico simples:")
-
-# Dados mínimos
-data = pd.DataFrame({
-    'x': [1, 2, 3, 4, 5],
-    'y': [10, 20, 15, 25, 30]
-})
-
-st.line_chart(data.set_index('x'))
-
-st.success("Se você vê o gráfico acima, o Streamlit está funcionando!")
-
-# Só então tente o mapa
-if st.button("Agora sim, mostrar mapa simples"):
-    import folium
+# Carregar direto do arquivo local
+try:
+    geolocation_df = pd.read_csv("olist_geolocation_dataset.csv")
+    st.success(f"✅ {len(geolocation_df):,} linhas carregadas localmente!")
     
-    # Mapa mínimo
-    m = folium.Map(location=[-15, -55], zoom_start=4)
-    folium.Marker([-23.55, -46.63], popup='São Paulo').add_to(m)
-    folium.Marker([-22.90, -43.17], popup='Rio').add_to(m)
+    # Seu mapa original
+    mapa = folium.Map(
+        location=[geolocation_df['geolocation_lat'].mean(), 
+                 geolocation_df['geolocation_lng'].mean()], 
+        zoom_start=5, 
+        tiles='CartoDB dark_matter'
+    )
     
-    st.components.v1.html(m.get_root().render(), width=800, height=500)
+    # Limitar pontos para performance
+    sample = geolocation_df.dropna().head(5000)
+    data = list(zip(sample['geolocation_lat'], sample['geolocation_lng']))
+    FastMarkerCluster(data).add_to(mapa)
+    
+    # Mostrar mapa
+    st.components.v1.html(mapa.get_root().render(), width=1300, height=700)
+    
+except FileNotFoundError:
+    st.error("Arquivo 'olist_geolocation_dataset.csv' não encontrado")
+    st.info("""
+    **Faça isso:**
+    1. Baixe de: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+    2. Extraia o arquivo CSV
+    3. Suba para esta pasta no GitHub
+    4. Recarregue o app
+    """)
