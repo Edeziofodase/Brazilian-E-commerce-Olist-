@@ -9,6 +9,9 @@ import folium
 from folium.plugins import MarkerCluster, FastMarkerCluster
 import kagglehub
 
+@st.cache_data
+def load_kaggle_dataset(olist_geolocation_dataset.csv):
+
 st.title('Análise Geral')
 mapa = folium.Map(location=[dadosg['geolocation_lat'].mean(), dadosg['geolocation_lng'].mean()], zoom_start=5, tiles='CartoDB dark_matter');
 
