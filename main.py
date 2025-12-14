@@ -1,38 +1,21 @@
-import streamlit as st
+# NOVO CÓDIGO para quando o arquivo estiver no GitHub
 import pandas as pd
-import folium
-from folium.plugins import FastMarkerCluster
+import streamlit as st
 
-st.set_page_config(layout="wide")
-st.title("🌍 Mapa Olist - Arquivos Locais")
+@st.cache_data
+def load_local_data():
+    """Carrega dados do arquivo local no GitHub"""
+    try:
+        # Tenta carregar do arquivo local
+        df = pd.read_csv('olist_geolocation_dataset.csv', encoding='utf-8')
+        return df
+    except:
+        # Fallback para dados de exemplo
+        return pd.DataFrame({
+            'geolocation_lat': [-23.5505, -22.9068],
+            'geolocation_lng': [-46.6333, -43.1729]
+        })
 
-# Carregar direto do arquivo local
-try:
-    geolocation_df = pd.read_csv("olist_geolocation_dataset.csv")
-    st.success(f"✅ {len(geolocation_df):,} linhas carregadas localmente!")
-    
-    # Seu mapa original
-    mapa = folium.Map(
-        location=[geolocation_df['geolocation_lat'].mean(), 
-                 geolocation_df['geolocation_lng'].mean()], 
-        zoom_start=5, 
-        tiles='CartoDB dark_matter'
-    )
-    
-    # Limitar pontos para performance
-    sample = geolocation_df.dropna().head(5000)
-    data = list(zip(sample['geolocation_lat'], sample['geolocation_lng']))
-    FastMarkerCluster(data).add_to(mapa)
-    
-    # Mostrar mapa
-    st.components.v1.html(mapa.get_root().render(), width=1300, height=700)
-    
-except FileNotFoundError:
-    st.error("Arquivo 'olist_geolocation_dataset.csv' não encontrado")
-    st.info("""
-    **Faça isso:**
-    1. Baixe de: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
-    2. Extraia o arquivo CSV
-    3. Suba para esta pasta no GitHub
-    4. Recarregue o app
-    """)
+# Uso
+geolocation_df = load_local_data()
+st.write(f"Dados carregados: {len(geolocation_df)} linhas")
