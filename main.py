@@ -11,7 +11,7 @@ import kagglehub
 
 @st.cache_data
 def load_kaggle_dataset(dataset_path):
-  dataset_path = "olistbr/brazilian-ecommerce"
+  dataset_path: "olistbr/brazilian-ecommerce"
   try:
         # Usando kagglehub (mais simples)
         path = kagglehub.dataset_download(dataset_path)
