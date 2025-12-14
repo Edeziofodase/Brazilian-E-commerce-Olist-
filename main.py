@@ -10,10 +10,11 @@ from folium.plugins import MarkerCluster, FastMarkerCluster
 import kagglehub
 
 @st.cache_data
-def load_kaggle_dataset(olist_geolocation_dataset.csv):
+def load_kaggle_dataset(dataset_path):
+  dataset_path = "olistbr/brazilian-ecommerce"
   try:
         # Usando kagglehub (mais simples)
-        path = kagglehub.dataset_download(olist_geolocation_dataset.csv)
+        path = kagglehub.dataset_download(dataset_path)
         return path
     except Exception as e:
         st.error(f"Erro ao baixar dataset: {e}")
