@@ -25,11 +25,3 @@ def load_kaggle_dataset():
         return None
 
 st.title('Análise Geral')
-mapa = folium.Map(location=[dadosg['geolocation_lat'].mean(), dadosg['geolocation_lng'].mean()], zoom_start=5, tiles='CartoDB dark_matter');
-
-data = list(zip(dadosg['geolocation_lat'], dadosg['geolocation_lng']))
-
-FastMarkerCluster(data).add_to(mapa)
-mapa.save('mapa_clusters.html') ;
-
-st_mapa = st_folium(m, width = 10)
