@@ -52,4 +52,4 @@ data = list(zip(geolocation_df['geolocation_lat'], geolocation_df['geolocation_l
 
 FastMarkerCluster(data).add_to(mapa)
 mapa.save('mapa_clusters.html') ;
-st_data = st_folium(mapa, width=725)
+st_data = st_folium(mapa, width=1200)
