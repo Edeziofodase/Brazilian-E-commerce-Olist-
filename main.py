@@ -11,6 +11,13 @@ import kagglehub
 
 @st.cache_data
 def load_kaggle_dataset(olist_geolocation_dataset.csv):
+  try:
+        # Usando kagglehub (mais simples)
+        path = kagglehub.dataset_download(olist_geolocation_dataset.csv)
+        return path
+    except Exception as e:
+        st.error(f"Erro ao baixar dataset: {e}")
+        return None
 
 st.title('Análise Geral')
 mapa = folium.Map(location=[dadosg['geolocation_lat'].mean(), dadosg['geolocation_lng'].mean()], zoom_start=5, tiles='CartoDB dark_matter');
