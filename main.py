@@ -15,4 +15,6 @@ mapa = folium.Map(location=[dadosg['geolocation_lat'].mean(), dadosg['geolocatio
 data = list(zip(dadosg['geolocation_lat'], dadosg['geolocation_lng']))
 
 FastMarkerCluster(data).add_to(mapa)
-mapa.save('mapa_clusters.html') ; mapa
+mapa.save('mapa_clusters.html') ;
+
+st_mapa = st_folium(m, width = 10)
