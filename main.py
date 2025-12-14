@@ -10,10 +10,14 @@ from folium.plugins import MarkerCluster, FastMarkerCluster
 import kagglehub
 
 @st.cache_data
-def load_kaggle_dataset(dataset_path):
-  dataset_path: "olistbr/brazilian-ecommerce"
-  try:
-        # Usando kagglehub (mais simples)
+def load_kaggle_dataset():
+    """
+    Carrega o dataset Olist Brazilian E-commerce do Kaggle
+    """
+    dataset_path = "olistbr/brazilian-ecommerce"  # Aqui você define o valor
+    
+    try:
+        # Usando kagglehub para baixar o dataset
         path = kagglehub.dataset_download(dataset_path)
         return path
     except Exception as e:
