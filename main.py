@@ -26,7 +26,6 @@ def load_kaggle_dataset():
         return None
 
 
-dataset_path = kagglehub.dataset_download("olistbr/brazilian-ecommerce")
 
 # PASSO 2 - Depois adicione estas linhas
 customers_df = pd.read_csv(f"{dataset_path}/olist_customers_dataset.csv")
